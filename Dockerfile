@@ -35,6 +35,7 @@ LABEL \
 COPY --from=builder /usr/local/lib/libproto* /usr/local/lib/
 # gRPC
 COPY --from=builder /usr/local/lib/libgrpc* /usr/local/lib/
+COPY --from=builder /usr/local/lib/libaddress_sorting.so.6.0.0 /usr/local/lib/
 # Install remaining tools using apt-get
 RUN apt-get -y update && \
   apt-get -y install \
