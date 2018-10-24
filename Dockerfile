@@ -30,15 +30,21 @@ FROM tafthorne/netcat-debian
 LABEL \
  Description="Basic Debian production environment with a number of libraries configured" \
  MAINTAINER="Thomas Thorne <TafThorne@GoogleMail.com>"
+ARG prefix=/usr/local
+ARG binPath=$prefix/bin
+ARG libPath=$prefix/lib
 # Copy over pre-made tools
 # Protocol Buffer
-COPY --from=builder /usr/local/lib/libproto* /usr/local/lib/
+COPY --from=builder /usr/local/lib/libproto* $libPath/
 # gRPC
-COPY --from=builder /usr/local/lib/libgrpc* /usr/local/lib/
-COPY --from=builder /usr/local/lib/libaddress_sorting.so.6.0.0 /usr/local/lib/
+COPY --from=builder /usr/local/lib/libaddress_sorting.so.6.0.0 $libPath/
+COPY --from=builder /usr/local/lib/libgpr* $libPath/
+COPY --from=builder /usr/local/lib/libgrpc* $libPath/
+RUN ldconfig
 # Install remaining tools using apt-get
 RUN apt-get -y update && \
   apt-get -y install \
     libhdf5-dev \
+    libssl1.1 \
     uuid-dev;
 
