@@ -23,9 +23,10 @@ RUN \
     make -j$(nproc) && make install && make clean && ldconfig && \
     echo "--- installing grpc ---" && \
     cd /var/local/git/grpc && \
-    make -j$(nproc) && make install && make clean && ldconfig
+    make -j$(nproc) && make install && make clean && ldconfig && \
+    make -j$(nproc) grpc_cli
 
-
+# Put the main image together
 FROM tafthorne/netcat-debian
 LABEL \
  Description="Basic Debian production environment with a number of libraries configured" \
@@ -41,9 +42,13 @@ COPY --from=builder /usr/local/lib/libaddress_sorting.so.6.0.0 $libPath/
 COPY --from=builder /usr/local/lib/libgpr* $libPath/
 COPY --from=builder /usr/local/lib/libgrpc* $libPath/
 RUN ldconfig
+# grpc_cli
+COPY --from=builder /var/local/git/grpc/bins/opt/grpc_cli /usr/local/bin/
 # Install remaining tools using apt-get
-RUN apt-get -y update && \
+RUN \
+  apt-get -y update && \
   apt-get -y install \
+    libgflags-dev \
     libhdf5-dev \
     libssl1.1 \
     uuid-dev;
