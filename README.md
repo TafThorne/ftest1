@@ -1,4 +1,6 @@
 # ftest1
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTafThorne%2Fftest1.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FTafThorne%2Fftest1?ref=badge_shield)
+
 Dockerfile that sets up a basic Debian production environment with a number of libraries configured, fdev1 adds development tools to it
 
 The Docker Image is listed on Docker Hub:
@@ -36,3 +38,7 @@ see their project page.
 
 Please see the notes in CONTRIBUTING.md.
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTafThorne%2Fftest1.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FTafThorne%2Fftest1?ref=badge_large)
